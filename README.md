@@ -2,11 +2,16 @@
 基于`zizifn/edgetunnel`修改[![Repository](https://img.shields.io/badge/View%20on-GitHub-blue.svg)](https://github.com/zizifn/edgetunnel/blob/main/src/worker-vless.js)
 
 ## 部署：
-点击下方按钮部署至Workers：
+1.点击下方按钮快速部署至Workers：
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/linzjian666/vl.git)
 
-## 使用方法：
+2.或者，复制`_worker.js`中的代码手动部署。
+
+### 请根据图片修改`_worker.js`：
+<img alt="image" src="https://raw.githubusercontent.com/linzjian666/vl/main/imgs/1da1a845-87f8-4a9d-959f-2c392e3c05a6.png">
+
+## 节点信息：
 部署完成后，在浏览器中打开网址：`https://你的Workers域名/list`，输入用户名和密码登录，即可获取节点信息
 
 ## 免责声明:
