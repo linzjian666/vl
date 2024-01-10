@@ -8,7 +8,7 @@
 
 2.或者，复制`_worker.js`中的代码手动部署。
 
-#### 请根据图片修改`_worker.js`：
+# 请根据图片修改`_worker.js`： #
 <img alt="image" src="https://raw.githubusercontent.com/linzjian666/vl/main/imgs/1da1a845-87f8-4a9d-959f-2c392e3c05a6.png">
 
 ## 节点信息：
