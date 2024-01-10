@@ -1,7 +1,7 @@
 # vl
 基于`zizifn/edgetunnel`修改[![Repository](https://img.shields.io/badge/View%20on-GitHub-blue.svg)](https://github.com/zizifn/edgetunnel/blob/main/src/worker-vless.js)
 
-## 部署：
+## 部署方式：
 1.点击下方按钮快速部署至Workers：
 
 [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/linzjian666/vl.git)
