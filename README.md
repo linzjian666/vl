@@ -10,11 +10,11 @@
 
 > \[!IMPORTANT]
 > 
-> **请根据图片修改`_worker.js`：** 
+> 请根据图片修改`_worker.js`：
 ><img alt="image" src="https://raw.githubusercontent.com/linzjian666/vl/main/imgs/1da1a845-87f8-4a9d-959f-2c392e3c05a6.png"> 
 
 ---
-* **或使用[生成器](https://gen-vless.netlify.app)生成配置**
+3.或者，使用[Workers Vless Generator](https://gen-vless.netlify.app)生成配置后部署
 
 ## 节点信息：
 
