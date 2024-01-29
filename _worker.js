@@ -2,6 +2,8 @@
 // [Windows] 按下"Win + R"键，输入cmd并运行：Powershell -NoExit -Command "[guid]::NewGuid()"。
 let userID = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
 
+let path = `/${userID}-vless`
+
 const proxyIPs = ['cdn-all.xn--b6gac.eu.org', 'cdn.xn--b6gac.eu.org', 'cdn-b100.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org', 'cdn.anycast.eu.org'];
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
@@ -34,27 +36,29 @@ export default {
 				switch (url.pathname) {
 					case `/${userID}-vless`:
 						return new Response(JSON.stringify(request.cf), { status: 200 });
-          case '/list': {
-            // Check if the request has valid authentication credentials
-            const authHeader = request.headers.get('Authorization');
-            if (!authHeader || !isValidCredentials(authHeader)) {
-              // Authentication failed, return a 401 Unauthorized response
-              return new Response('Unauthorized', { status: 401, headers: { 'WWW-Authenticate': 'Basic realm="Restricted Area"' } });
-            }
-    
-            const vlessConfig = getVLESSConfig(userID, request.headers.get('Host'));
-            return new Response(`${vlessConfig}`, {
-              status: 200,
-              headers: {
-                "Content-Type": "text/plain;charset=utf-8",
-              }
-            });
-          }
+          				case '/list': 
+            					// Check if the request has valid authentication credentials
+            					const authHeader = request.headers.get('Authorization');
+            					if (!authHeader || !isValidCredentials(authHeader)) {
+              					// Authentication failed, return a 401 Unauthorized response
+              						return new Response('Unauthorized', { status: 401, headers: { 'WWW-Authenticate': 'Basic realm="Restricted Area"' } });
+						}
+                				const vlessConfig = getVLESSConfig(userID, request.headers.get('Host'));
+            					return new Response(`${vlessConfig}`, {
+              						status: 200,
+              						headers: {
+                						"Content-Type": "text/plain;charset=utf-8",
+              						}
+            					});
 					default:
 						return new Response('Hello world!!', { status: 200 });
 				}
 			} else {
-				return await vlessOverWSHandler(request);
+				if (!url.pathname || url.pathname !== `${path}`) {
+					return new Response('Hello world!!', { status: 200 });
+				} else {
+					return await vlessOverWSHandler(request);
+				}
 			}
 		} catch (err) {
 			/** @type {Error} */ let e = err;
@@ -529,8 +533,8 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
 }
 
 function getVLESSConfig(userID, hostName) {
-	const vlessws = `vless://${userID}@icook.hk:80?encryption=none&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
-	const vlesswstls = `vless://${userID}@icook.hk:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F${userID}-vless#${hostName}`
+	const vlessws = `vless://${userID}@icook.hk:80?encryption=none&type=ws&host=${hostName}&path=${path}%3Fed%3D2048#${hostName}`
+	const vlesswstls = `vless://${userID}@icook.hk:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=${path}%3Fed%3D2048#${hostName}`
 return `
 ################################################################
 v2ray
@@ -557,7 +561,7 @@ CF-workers-vless-ws:
   udp: false
   client-fingerprint: chrome
   ws-opts:
-    path: "/${userID}-vless"
+    path: "${path}"
     headers:
       host: ${hostName}
 ---------------------------------------------------------------
@@ -574,7 +578,7 @@ CF-workers-vless-ws-tls:
   sni: ${hostName}
   client-fingerprint: chrome
   ws-opts:
-    path: "/${userID}-vless"
+    path: "${path}"
     headers:
       host: ${hostName}
 ---------------------------------------------------------------
